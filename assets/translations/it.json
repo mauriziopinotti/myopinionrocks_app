@@ -1,0 +1,9 @@
+{
+  "msg_welcome": "Benvenuto in MyOpinionRocks, l'unico posto in cui la tua opinione... beh... spacca!",
+  "lbl_login": "Login",
+  "lbl_register": "Registrati",
+  "msg_dont_have_account": "Non hai un account?",
+  "lbl_goto_survey": "Inizia il sondaggio",
+  "api_generic_error": "Si è verificato un errore durante il caricamento dei dati, si prega di riprovare.",
+  "message_login_failed": "Credenziali errate, si prega di verificare username e password e riprovare."
+}

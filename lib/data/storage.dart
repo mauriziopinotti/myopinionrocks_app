@@ -1,0 +1,56 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class MyStorage {
+  static final MyStorage _instance = MyStorage._internal();
+
+  FlutterSecureStorage? _secureStorage;
+
+  SharedPreferences get prefs => _preferences;
+  late SharedPreferences _preferences;
+
+  factory MyStorage() {
+    return _instance;
+  }
+
+  Future<bool> init() async {
+    // Init insecure storage
+    _preferences = await SharedPreferences.getInstance();
+
+    try {
+      // Try to init secure storage as well
+      _secureStorage = const FlutterSecureStorage();
+
+      // Test if it works, or fallback to shared preferences
+      _secureStorage!.write(key: 'test', value: 'test');
+      final value = await _secureStorage!.read(key: 'test');
+      if (value != 'test') throw Exception("invalid return value: $value");
+      print("Secure storage init OK");
+
+      return true;
+    } catch (e) {
+      print("Secure storage init ERROR: $e");
+      _secureStorage = null;
+
+      return false;
+    }
+  }
+
+  MyStorage._internal();
+
+  Future<String?> read({required String key}) => _secureStorage != null
+      ? _secureStorage!.read(key: key)
+      : Future.value(_preferences.getString(key) ?? "");
+
+  Future write({required String key, required String? value}) {
+    if (_secureStorage != null) {
+      return _secureStorage!.write(key: key, value: value);
+    } else {
+      if (value != null) {
+        return _preferences.setString(key, value);
+      } else {
+        return _preferences.remove(key);
+      }
+    }
+  }
+}

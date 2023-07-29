@@ -1,0 +1,9 @@
+{
+  "msg_welcome": "Welcome to MyOpinionRocks, the only place where your opinion... well... rocks!",
+  "lbl_login": "Login",
+  "lbl_register": "Register",
+  "msg_dont_have_account": "Don't have an account?",
+  "lbl_goto_survey": "Start survey",
+  "api_generic_error": "An error occurred while getting your data, please try again shortly.",
+  "message_login_failed": "Wrong credentials, please double check username and password and try again."
+}
