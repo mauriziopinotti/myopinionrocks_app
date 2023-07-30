@@ -6,6 +6,12 @@ abstract class  LocaleKeys {
   static const lbl_ok = 'lbl_ok';
   static const lbl_cancel = 'lbl_cancel';
   static const msg_welcome = 'msg_welcome';
+  static const lbl_welcome_1_title = 'lbl_welcome_1_title';
+  static const lbl_welcome_1_subtitle = 'lbl_welcome_1_subtitle';
+  static const lbl_welcome_2_title = 'lbl_welcome_2_title';
+  static const lbl_welcome_2_subtitle = 'lbl_welcome_2_subtitle';
+  static const lbl_welcome_3_title = 'lbl_welcome_3_title';
+  static const lbl_welcome_3_subtitle = 'lbl_welcome_3_subtitle';
   static const lbl_login = 'lbl_login';
   static const lbl_register = 'lbl_register';
   static const msg_dont_have_account = 'msg_dont_have_account';
