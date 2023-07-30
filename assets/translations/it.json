@@ -16,6 +16,9 @@
   "lbl_goto_survey": "Inizia il sondaggio",
   "msg_quit_survey": "Sicuro di voler interrompere il sondaggio in corso?",
   "msg_loading_survey": "Resta con noi, stiamo caricando un bellissimo sondaggio fatto apposta per te...",
+  "msg_saving_survey": "Non vediamo l'ora di vedere le tue fantastiche risposte...",
+  "msg_saved_survey": "Il tuo invio è ora al sicuro nei nostri server!",
+  "msg_join": "Join millions of others in sharing your opinion on politics, sport, entertainment and more.",
   "msg_api_generic_error": "Si è verificato un errore durante il caricamento dei dati, si prega di riprovare.",
   "msg_login_failed": "Credenziali errate, si prega di verificare username e password e riprovare."
 }

@@ -15,6 +15,7 @@ import '../models/survey.dart';
 import '../models/user.dart';
 import 'login.dart';
 import 'registration.dart';
+import 'survey.dart';
 
 class RestClient {
   static final RestClient _instance = RestClient._internal();
@@ -191,12 +192,12 @@ class RestClient {
     return Survey.fromJson(jsonDecode(response.data!));
   }
 
-// Future<bool> createSurveyResult(SurveyResult result) async {
-//   Response<String> response =
-//       await _dio.post<String>('/user-survey-result', data: result.toJson());
-//
-//   return SurveyResult.fromJson(jsonDecode(response.data!));
-// }
+Future<SurveySubmissionResponse> createSurveyResult(SurveySubmissionRequest request) async {
+  Response<String> response =
+      await _dio.post<String>('/user-survey-result', data: request.toJson());
+
+  return SurveySubmissionResponse.fromJson(jsonDecode(response.data!));
+}
 }
 
 // String? parseRestError(e) {

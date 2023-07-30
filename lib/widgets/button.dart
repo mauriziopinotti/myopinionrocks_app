@@ -14,7 +14,7 @@ class MyButton extends StatelessWidget {
     super.key,
     this.color,
     required this.onPressed,
-    this.expanded = false,
+    this.expanded = true,
   });
 
   @override

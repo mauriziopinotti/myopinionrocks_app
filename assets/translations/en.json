@@ -16,6 +16,9 @@
   "lbl_goto_survey": "Start survey",
   "msg_quit_survey": "Are you sure you want to quit the current survey?",
   "msg_loading_survey": "Stay tuned, we're loading the most amazing survey tailored for you...",
+  "msg_saving_survey": "We're looking forward to see your amazing answers...",
+  "msg_saved_survey": "Your submission is now safe in our servers!",
+  "msg_join": "Join millions of others in sharing your opinion on politics, sport, entertainment and more.",
   "msg_api_generic_error": "An error occurred while getting your data, please try again shortly.",
   "msg_login_failed": "Wrong credentials, please double check username and password and try again."
 }

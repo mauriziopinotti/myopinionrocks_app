@@ -18,6 +18,9 @@ abstract class  LocaleKeys {
   static const lbl_goto_survey = 'lbl_goto_survey';
   static const msg_quit_survey = 'msg_quit_survey';
   static const msg_loading_survey = 'msg_loading_survey';
+  static const msg_saving_survey = 'msg_saving_survey';
+  static const msg_saved_survey = 'msg_saved_survey';
+  static const msg_join = 'msg_join';
   static const msg_api_generic_error = 'msg_api_generic_error';
   static const msg_login_failed = 'msg_login_failed';
 

@@ -24,14 +24,12 @@ class WelcomeScreen extends StatelessWidget {
       const SizedBox(height: 32),
       MyButton(
         LocaleKeys.lbl_goto_survey.tr(),
-        expanded: true,
         color: primaryColor,
         onPressed: () => push(context, const SurveyScreen()),
       ),
       const Divider(height: 32),
       MyButton(
         LocaleKeys.lbl_login.tr(),
-        expanded: true,
         color: secondaryColor,
         onPressed: () => push(context, const LoginScreen()),
       ),
@@ -39,7 +37,6 @@ class WelcomeScreen extends StatelessWidget {
       Text(LocaleKeys.msg_dont_have_account.tr()),
       MyButton(
         LocaleKeys.lbl_register.tr(),
-        expanded: true,
         color: tertiaryColor,
         onPressed: () => push(context, const RegistrationScreen()),
       ),
