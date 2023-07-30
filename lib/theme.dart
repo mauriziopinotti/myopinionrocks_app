@@ -33,6 +33,12 @@ const textTheme = TextTheme(
     fontSize: 22,
     color: textColor,
   ),
+  titleLarge: TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: textColor,
+  ),
   labelLarge: TextStyle(
     fontFamily: 'Roboto',
     // fontWeight: FontWeight.normal,

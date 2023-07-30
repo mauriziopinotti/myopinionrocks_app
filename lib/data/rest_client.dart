@@ -126,7 +126,7 @@ class RestClient {
       await updateUser();
       return null;
     } else {
-      return LocaleKeys.api_generic_error.tr();
+      return LocaleKeys.msg_api_generic_error.tr();
     }
     // } catch (e, s) {
     //   print(e);
@@ -187,6 +187,7 @@ class RestClient {
 
   Future<Survey> getSurvey() async {
     Response<String> response = await _dio.get('/user-survey');
+    // await Future.delayed(Duration(seconds: 5)); // XXX
     return Survey.fromJson(jsonDecode(response.data!));
   }
 

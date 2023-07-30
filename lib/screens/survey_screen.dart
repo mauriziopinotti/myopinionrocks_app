@@ -1,10 +1,14 @@
 import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:myopinionrocks_app/data/rest_client.dart';
+import 'package:myopinionrocks_app/generated/locale_keys.g.dart';
 
 import '../globals.dart';
 import '../models/survey.dart';
 import '../theme.dart';
+import '../widgets/dialogs.dart';
+import '../widgets/loader.dart';
 import '../widgets/scaffold.dart';
 import 'survey_completed_screen.dart';
 
@@ -18,13 +22,21 @@ class SurveyScreen extends StatelessWidget {
           child: FutureBuilder<Survey>(
               future: RestClient().getSurvey(),
               builder: (_, AsyncSnapshot<Survey> snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  // TODO
-                  return Text("LOADING...");
-                }
-                return _QuestionsPanel(snapshot.data as Survey);
+                return snapshot.connectionState != ConnectionState.done
+                    ? MyLoader(LocaleKeys.msg_loading_survey.tr())
+                    : WillPopScope(
+                        onWillPop: () => _confirmQuit(context),
+                        child: _QuestionsPanel(snapshot.data as Survey));
               })),
     );
+  }
+
+  Future<bool> _confirmQuit(BuildContext context) async {
+    final result = await showConfirmDialog(
+      context,
+      message: LocaleKeys.msg_quit_survey.tr(),
+    );
+    return result == true;
   }
 }
 
@@ -56,7 +68,9 @@ class _QuestionsPanelState extends State<_QuestionsPanel> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text(widget.survey.title),
+      Text(widget.survey.title, style: textTheme.titleLarge),
+      const Divider(),
+      const SizedBox(height: 32),
       Expanded(
           child: PageView.builder(
         controller: _controller,
@@ -115,21 +129,35 @@ class _AnswersPanelState extends State<_AnswersPanel> {
   SurveyAnswer? get selectedAnswer =>
       widget.survey.currentSubmission[widget.question];
 
+  Widget get _randomBackground => Image.asset([
+        'assets/images/splash-1.png',
+        'assets/images/splash-2.png',
+        'assets/images/splash-3.png'
+      ].sample(1).single);
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: widget.question.answers
-            .map((answer) => RadioListTile<SurveyAnswer>(
-                  title: Text(answer.title),
-                  subtitle: selectedAnswer != null
-                      ? _buildPreviousSubmissionsIndicator(answer)
-                      : null,
-                  activeColor: primaryColor,
-                  groupValue: selectedAnswer,
-                  value: answer,
-                  onChanged: _onChanged,
-                ))
-            .toList());
+    return Stack(
+      children: [
+        Opacity(opacity: 0.05, child: _randomBackground),
+        Column(children: [
+          Text(widget.question.title, style: textTheme.titleMedium),
+          const SizedBox(height: 8),
+          ...widget.question.answers
+              .map((answer) => RadioListTile<SurveyAnswer>(
+                    title: Text(answer.title),
+                    subtitle: selectedAnswer != null
+                        ? _buildPreviousSubmissionsIndicator(answer)
+                        : null,
+                    activeColor: primaryColor,
+                    groupValue: selectedAnswer,
+                    value: answer,
+                    onChanged: _onChanged,
+                  ))
+              .toList()
+        ]),
+      ],
+    );
   }
 
   _onChanged(final SurveyAnswer? answer) async {

@@ -1,9 +1,15 @@
 {
+  "lbl_yes": "Yes",
+  "lbl_no": "No",
+  "lbl_ok": "OK",
+  "lbl_cancel": "Cancel",
   "msg_welcome": "Welcome to MyOpinionRocks, the only place where your opinion... well... rocks!",
   "lbl_login": "Login",
   "lbl_register": "Register",
   "msg_dont_have_account": "Don't have an account?",
   "lbl_goto_survey": "Start survey",
-  "api_generic_error": "An error occurred while getting your data, please try again shortly.",
-  "message_login_failed": "Wrong credentials, please double check username and password and try again."
+  "msg_quit_survey": "Are you sure you want to quit the current survey?",
+  "msg_loading_survey": "Stay tuned, we're loading the most amazing survey tailored for you...",
+  "msg_api_generic_error": "An error occurred while getting your data, please try again shortly.",
+  "msg_login_failed": "Wrong credentials, please double check username and password and try again."
 }

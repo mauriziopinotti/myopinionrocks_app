@@ -1,9 +1,15 @@
 {
+  "lbl_yes": "Sì",
+  "lbl_no": "No",
+  "lbl_ok": "Ok",
+  "lbl_cancel": "Annulla",
   "msg_welcome": "Benvenuto in MyOpinionRocks, l'unico posto in cui la tua opinione... beh... spacca!",
   "lbl_login": "Login",
   "lbl_register": "Registrati",
   "msg_dont_have_account": "Non hai un account?",
   "lbl_goto_survey": "Inizia il sondaggio",
-  "api_generic_error": "Si è verificato un errore durante il caricamento dei dati, si prega di riprovare.",
-  "message_login_failed": "Credenziali errate, si prega di verificare username e password e riprovare."
+  "msg_quit_survey": "Sicuro di voler interrompere il sondaggio in corso?",
+  "msg_loading_survey": "Resta con noi, stiamo caricando un bellissimo sondaggio fatto apposta per te...",
+  "msg_api_generic_error": "Si è verificato un errore durante il caricamento dei dati, si prega di riprovare.",
+  "msg_login_failed": "Credenziali errate, si prega di verificare username e password e riprovare."
 }
