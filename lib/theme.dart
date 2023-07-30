@@ -7,6 +7,8 @@ final theme = ThemeData(
 );
 
 const primaryColor = Color(0xFFe93236);
+const secondaryColor = Color(0xFF4f96f6);
+const tertiaryColor = Color(0xFFfbc234);
 const textColor = Color(0xFF515b63);
 const appBarColor = Colors.white;
 
@@ -14,59 +16,39 @@ MaterialStateProperty<Color> get primaryColorMaterial =>
     MaterialStateProperty.all<Color>(primaryColor);
 
 const textTheme = TextTheme(
-  // Es. nome nel profilo (3.6rem)
-  displayLarge /* headline1 */ : TextStyle(
-    fontFamily: 'Roboto',
-    fontWeight: FontWeight.bold,
-    fontSize: 28,
-    color: Colors.black,
-  ),
-  // Icone bottom bar (3rem)
-  displayMedium /* headline2 */ : TextStyle(
-    fontFamily: 'Roboto',
-    fontWeight: FontWeight.normal,
-    fontSize: 42,
-    color: Colors.white,
-  ),
-  // Es. i pulsanti "Ferie", "Malattia", etc. (2.5rem)
-  displaySmall /* headline3 */ : TextStyle(
-    fontFamily: 'Roboto',
-    fontWeight: FontWeight.normal,
-    fontSize: 26,
-    color: Colors.white,
-  ),
-  // Nomi dei task e pulsanti (2rem)
-  titleMedium /* subtitle1 */ : TextStyle(
+  // displayMedium: TextStyle(
+  //   fontFamily: 'Roboto',
+  //   fontWeight: FontWeight.normal,
+  //   fontSize: 42,
+  //   color: textColor,
+  // ),
+  // displaySmall: TextStyle(
+  //   fontFamily: 'Roboto',
+  //   fontWeight: FontWeight.normal,
+  //   fontSize: 26,
+  //   color: textColor,
+  // ),
+  titleMedium: TextStyle(
     fontFamily: 'Roboto',
     fontSize: 22,
-    color: Colors.black,
+    color: textColor,
   ),
-  // Pulsanti (2rem)
-  labelLarge /* button */ : TextStyle(
+  labelLarge: TextStyle(
     fontFamily: 'Roboto',
-    fontWeight: FontWeight.normal,
-    fontSize: 22,
-    color: Colors.white,
+    // fontWeight: FontWeight.normal,
+    fontSize: 24,
+    color: textColor,
   ),
-  // Scritte tipo la data (1.4rem)
-  bodyLarge /* bodyText1 */ : TextStyle(
+  // bodyLarge: TextStyle(
+  //   fontFamily: 'Roboto',
+  //   fontWeight: FontWeight.normal,
+  //   fontSize: 20,
+  //   color: textColor,
+  // ),
+  bodyMedium: TextStyle(
     fontFamily: 'Roboto',
-    fontWeight: FontWeight.normal,
-    fontSize: 20,
-    color: Color(0xFF888888),
+    // fontWeight: FontWeight.w300,
+    fontSize: 18,
+    color: textColor,
   ),
-  // Scritte in piccolo nelle liste
-  bodyMedium /* bodyText2 */ : TextStyle(
-    fontFamily: 'Roboto',
-    fontWeight: FontWeight.w300,
-    fontSize: 16,
-    color: Color(0xFF888888),
-  ),
-);
-
-const snackBarStyle = TextStyle(
-  fontFamily: 'Roboto',
-  fontWeight: FontWeight.w300,
-  fontSize: 16,
-  color: Color(0xFFFFFFFF),
 );
