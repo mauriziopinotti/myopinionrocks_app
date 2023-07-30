@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 import '../extensions.dart';
 
 class Survey {
@@ -8,6 +10,10 @@ class Survey {
 
   // App-only fields
   Map<SurveyQuestion, SurveyAnswer> currentSubmission = {};
+
+  bool get isComplete =>
+      questions.firstWhereOrNull((q) => !currentSubmission.containsKey(q)) ==
+      null;
 
   Survey.fromJson(Map<String, dynamic> json) {
     id = json['id'];

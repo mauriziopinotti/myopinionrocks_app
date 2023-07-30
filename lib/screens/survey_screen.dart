@@ -18,17 +18,16 @@ class SurveyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyScaffold(
-      child: Center(
-          child: FutureBuilder<Survey>(
-              future: RestClient().getSurvey(),
-              builder: (_, AsyncSnapshot<Survey> snapshot) {
-                return snapshot.connectionState != ConnectionState.done
-                    ? MyLoader(LocaleKeys.msg_loading_survey.tr())
-                    : WillPopScope(
-                        onWillPop: () => _confirmQuit(context),
-                        child: _QuestionsPanel(snapshot.data as Survey));
-              })),
-    );
+        child: Center(
+            child: FutureBuilder<Survey>(
+                future: RestClient().getSurvey(),
+                builder: (_, AsyncSnapshot<Survey> snapshot) =>
+                    snapshot.connectionState != ConnectionState.done
+                        ? MyLoader(LocaleKeys.msg_loading_survey.tr())
+                        : WillPopScope(
+                            onWillPop: () => _confirmQuit(context),
+                            child: _QuestionsPanel(snapshot.data as Survey),
+                          ))));
   }
 
   Future<bool> _confirmQuit(BuildContext context) async {
@@ -70,7 +69,7 @@ class _QuestionsPanelState extends State<_QuestionsPanel> {
     return Column(children: [
       Text(widget.survey.title, style: textTheme.titleLarge),
       const Divider(),
-      const SizedBox(height: 32),
+      const SizedBox(height: 16),
       Expanded(
           child: PageView.builder(
         controller: _controller,
@@ -85,6 +84,7 @@ class _QuestionsPanelState extends State<_QuestionsPanel> {
         },
         onPageChanged: (page) => setState(() => _currentPage = page),
       )),
+      const SizedBox(height: 16),
       LinearProgressIndicator(
         value: (_currentPage + 1) / widget.survey.questions.length,
         backgroundColor: Colors.transparent,
@@ -94,17 +94,22 @@ class _QuestionsPanelState extends State<_QuestionsPanel> {
   }
 
   _onAnswerSelected() async {
-    // TODO: check if we have all the answers survey.isComplete
-
-    // Save answer and advance to next question
-    if (_currentPage < widget.survey.questions.length - 1) {
-      // TODO: goto first empty question
-      _controller.nextPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-    } else {
+    if (widget.survey.isComplete) {
       // Survey completed!
-      // TODO: check if we have all the answers survey.isComplete
-      push(context, SurveyCompletedScreen(widget.survey), replace: true);
+      return push(context, SurveyCompletedScreen(widget.survey), replace: true);
+    }
+    // Go to next empty question
+    for (int i = 0; i < widget.survey.questions.length; i++) {
+      final index = (i + _currentPage) % widget.survey.questions.length;
+      if (!widget.survey.currentSubmission
+          .containsKey(widget.survey.questions[index])) {
+        _controller.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+        break;
+      }
     }
   }
 }
@@ -137,28 +142,31 @@ class _AnswersPanelState extends State<_AnswersPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Opacity(opacity: 0.05, child: _randomBackground),
-        Column(children: [
-          Text(widget.question.title, style: textTheme.titleMedium),
-          const SizedBox(height: 8),
-          ...widget.question.answers
-              .map((answer) => RadioListTile<SurveyAnswer>(
-                    title: Text(answer.title),
-                    subtitle: selectedAnswer != null
-                        ? _buildPreviousSubmissionsIndicator(answer)
-                        : null,
-                    activeColor: primaryColor,
-                    groupValue: selectedAnswer,
-                    value: answer,
-                    onChanged: _onChanged,
-                  ))
-              .toList()
-        ]),
-      ],
-    );
+    return Stack(children: [
+      Opacity(opacity: 0.05, child: _randomBackground),
+      Column(children: [
+        Text(widget.question.title, style: textTheme.titleMedium),
+        const SizedBox(height: 8),
+        Expanded(
+            child: ListView.builder(
+          itemCount: widget.question.answers.length,
+          itemBuilder: (context, index) =>
+              _buildAnswer(widget.question.answers[index]),
+        )),
+      ]),
+    ]);
   }
+
+  Widget _buildAnswer(SurveyAnswer answer) => RadioListTile<SurveyAnswer>(
+        title: Text(answer.title),
+        subtitle: selectedAnswer != null
+            ? _buildPreviousSubmissionsIndicator(answer)
+            : null,
+        activeColor: primaryColor,
+        groupValue: selectedAnswer,
+        value: answer,
+        onChanged: _onChanged,
+      );
 
   _onChanged(final SurveyAnswer? answer) async {
     if (answer == null) return;
