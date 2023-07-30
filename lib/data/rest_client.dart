@@ -11,8 +11,10 @@ import '../data/storage.dart';
 import '../flavors.dart';
 import '../generated/locale_keys.g.dart';
 import '../globals.dart';
+import '../models/survey.dart';
 import '../models/user.dart';
-import 'login_registration.dart';
+import 'login.dart';
+import 'registration.dart';
 
 class RestClient {
   static final RestClient _instance = RestClient._internal();
@@ -114,18 +116,18 @@ class RestClient {
     _username = data.username?.trim();
 
     // try {
-      LoginResponse loginResponse;
-      Response<String> response =
-          await _dio.post<String>('/authenticate', data: data.toJson());
-      loginResponse = LoginResponse.fromJson(jsonDecode(response.data!));
+    LoginResponse loginResponse;
+    Response<String> response =
+        await _dio.post<String>('/authenticate', data: data.toJson());
+    loginResponse = LoginResponse.fromJson(jsonDecode(response.data!));
 
-      if (await saveTokens(loginResponse)) {
-        // Also, wait for user information to be populated
-        await updateUser();
-        return null;
-      } else {
-        return LocaleKeys.api_generic_error.tr();
-      }
+    if (await saveTokens(loginResponse)) {
+      // Also, wait for user information to be populated
+      await updateUser();
+      return null;
+    } else {
+      return LocaleKeys.api_generic_error.tr();
+    }
     // } catch (e, s) {
     //   print(e);
     //   print(s);
@@ -153,9 +155,9 @@ class RestClient {
     _username = data.username!.trim();
 
     // try {
-      await _dio.post<String>('/register', data: data.toJson());
+    await _dio.post<String>('/register', data: data.toJson());
 
-      return null;
+    return null;
     // } catch (e, s) {
     //   print(e);
     //   print(s);
@@ -168,7 +170,7 @@ class RestClient {
     try {
       // Update userInfo
       Response<String> response = await _dio.get('/user-info');
-      user = UserResponse.fromJson(jsonDecode(response.data!)).user ?? User();
+      user = User.fromJson(jsonDecode(response.data!));
       return user.isLogged;
     } catch (e) {
       if (e is DioException &&
@@ -183,17 +185,17 @@ class RestClient {
     }
   }
 
-  // Future<Survey> getSurvey() async {
-  //   Response<String> response = await _dio.get('/user-survey');
-  //   return Survey.fromJson(jsonDecode(response.data!));
-  // }
-  //
-  // Future<bool> createSurveyResult(SurveyResult result) async {
-  //   Response<String> response =
-  //       await _dio.post<String>('/user-survey-result', data: result.toJson());
-  //
-  //   return SurveyResult.fromJson(jsonDecode(response.data!));
-  // }
+  Future<Survey> getSurvey() async {
+    Response<String> response = await _dio.get('/user-survey');
+    return Survey.fromJson(jsonDecode(response.data!));
+  }
+
+// Future<bool> createSurveyResult(SurveyResult result) async {
+//   Response<String> response =
+//       await _dio.post<String>('/user-survey-result', data: result.toJson());
+//
+//   return SurveyResult.fromJson(jsonDecode(response.data!));
+// }
 }
 
 // String? parseRestError(e) {

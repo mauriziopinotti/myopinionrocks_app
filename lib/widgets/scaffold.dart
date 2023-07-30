@@ -27,7 +27,15 @@ class MyScaffold extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: SafeArea(child: child),
+        child: LayoutBuilder(builder: (_, BoxConstraints constraints) {
+          kIsLandscapeUi =
+              constraints.maxWidth >= kLandscapeUiWidthBreakpoint &&
+                  MediaQuery.of(context).orientation == Orientation.landscape;
+          boxConstraints = constraints;
+          debugPrint(
+              "maxWidth=${constraints.maxWidth}, isLandscapeUi=$kIsLandscapeUi");
+          return SafeArea(child: child);
+        }),
       ),
     );
   }
