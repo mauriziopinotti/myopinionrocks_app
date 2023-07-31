@@ -41,9 +41,13 @@ const textTheme = TextTheme(
   ),
   bodyMedium: TextStyle(
     fontFamily: 'Roboto',
-    // fontWeight: FontWeight.w300,
     fontSize: 18,
     color: textColor,
+  ),
+  bodySmall: TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 14,
+    color: Colors.black26,
   ),
 );
 

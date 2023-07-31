@@ -33,9 +33,10 @@ class SurveyScreen extends StatelessWidget {
                         (snapshot.error as DioException).response?.statusCode ==
                             404;
                     return ErrorScreen(
-                      error: outOfSurveys
+                      message: outOfSurveys
                           ? LocaleKeys.msg_out_of_surveys.tr()
                           : null,
+                      error: outOfSurveys ? null : snapshot.error?.toString(),
                       icon: outOfSurveys ? Icons.area_chart_rounded : null,
                     );
                   } else {
