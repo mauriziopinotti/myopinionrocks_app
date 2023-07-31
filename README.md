@@ -1,5 +1,32 @@
 # MyOpinionRocks
 
+## Motivation
+
+### Why cross-platform? 
+
+In a nutshell, to reduce the development time and cost and to ensure consistency across platforms.
+
+### Why Flutter?
+
+Flutter is a cross-application framework to build apps for Android, iOS, Web, Windows, Linux and MacOS with a single codebase.
+The main advantage over WebView-based frameworks is that the runtime is developed by Google for all platforms and this empowers behavioral consistency across platforms and you rarely get a problem on one platform that doesn't exist on other platforms. 
+Also, the rendering of the UI is more consistent if compared to HTML/CSS where each platform has a different implementation of the WebView.
+Performance-wise Flutter is superior when compared to JavaScript-based frameworks.
+Another advantage of Flutter is the ecosystem of plugins to speed up development and improve code separation.
+Also, development is blazing fast with hot-reload.
+Finally, Flutter doesn't completely abstract the underlying platform, for example you can make changes directly to the AndroidManifest.xml or the Xcode project.
+
+### Why Java for the backend?
+
+I thought about two possible languages for the server: dart (one language to rule them all) or Java.
+Java is a widely used language and it's easy to find developers with experience; I myself have a long experience with that.
+Over time a big amount of libraries have been made available and the knowledge base is huge.
+
+### Why MySQL for the data?
+
+First choice is always: SQL or NoSQL? For a survey app a NoSQL approach would probably be better because performances are superior and the lack of schemas let you be flexible with different question types over time.
+For this PoC I opted for MySQL because of time constraints (I am far more familiar with the MySQL/phpMyAdmin stack).
+
 ## App
 
 Repository: https://github.com/mauriziopinotti/myopinionrocks_app
@@ -93,5 +120,4 @@ For the sake of simplicity and time constraints I took a few shortcuts, includin
 
 - Better error handling with error codes
 - Most of the backend code is auto-generated and I didn't clean-up much of the unused code
-- Database choice: I should get up to speed with SQL VS NoSQL performance and decide which is best for this app
 - No unit tests
