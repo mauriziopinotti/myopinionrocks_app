@@ -24,16 +24,12 @@ class SurveyCompletedScreen extends StatelessWidget {
     return MyScaffold(
         child: Center(
             child: FutureBuilder<SurveySubmissionResponse>(
-                future: RestClient()
-                    .createSurveyResult(SurveySubmissionRequest(survey)),
-                builder: (_, AsyncSnapshot<SurveySubmissionResponse> snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    return MyLoader(LocaleKeys.msg_saving_survey.tr());
-                  } else {
-                    return _SurveyCompletedPanel(
-                        snapshot.data as SurveySubmissionResponse?);
-                  }
-                })));
+      future: RestClient().createSurveyResult(SurveySubmissionRequest(survey)),
+      builder: (_, AsyncSnapshot<SurveySubmissionResponse> snapshot) =>
+          snapshot.connectionState != ConnectionState.done
+              ? MyLoader(LocaleKeys.msg_saving_survey.tr())
+              : _SurveyCompletedPanel(snapshot.data),
+    )));
   }
 }
 

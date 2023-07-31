@@ -28,7 +28,7 @@ class MyButton extends StatelessWidget {
           ),
           padding:
               MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(
-            vertical: kIsWeb ? 14 : 10,
+            vertical: kIsWeb ? 16 : 10,
             horizontal: 20,
           ))),
       onPressed: onPressed,

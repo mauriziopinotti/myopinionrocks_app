@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myopinionrocks_app/generated/locale_keys.g.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +20,6 @@ class MyScaffold extends StatelessWidget {
     return Consumer<UserProvider>(
         builder: (_, userProvider, __) => Scaffold(
               appBar: AppBar(
-                automaticallyImplyLeading: !kIsWeb || !kIsLandscapeUi,
                 centerTitle: true,
                 title: Hero(
                   tag: 'my-app-bar',
@@ -42,11 +40,32 @@ class MyScaffold extends StatelessWidget {
                               Orientation.landscape;
                   debugPrint(
                       "maxWidth=${constraints.maxWidth}, isLandscapeUi=$kIsLandscapeUi");
-                  return SafeArea(child: child);
+                  return SafeArea(
+                      child: kIsLandscapeUi
+                          ? _wrapInLandscapeLayout(child)
+                          : child);
                 }),
               ),
             ));
   }
+
+  Widget _wrapInLandscapeLayout(Widget child) => Row(children: [
+        Flexible(
+          flex: 2,
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Expanded(child: child),
+          ]),
+        ),
+        Flexible(
+          flex: 1,
+          child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Image.asset('assets/images/icon.png')],
+              )),
+        ),
+      ]);
 
   Widget _buildUserIcon(UserProvider userProvider) => IconButton(
       icon: const Icon(Icons.person),

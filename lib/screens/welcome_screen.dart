@@ -38,13 +38,28 @@ class _WelcomeIntro extends StatefulWidget {
 }
 
 class _WelcomeIntroState extends State<_WelcomeIntro> {
+  late PageController _controller;
   int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PageController(initialPage: 0);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Expanded(
           child: PageView.builder(
+        scrollBehavior: WebAndMobileScrollBehavior(),
+        controller: _controller,
         itemCount: welcomeItems.length,
         itemBuilder: (_, index) => _buildIntroItem(
           title: welcomeItems[index].title,
@@ -58,7 +73,7 @@ class _WelcomeIntroState extends State<_WelcomeIntro> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
             welcomeItems.length,
-            (index) => _buildDot(index == _currentPage),
+            (index) => _buildDot(index),
           )),
     ]);
   }
@@ -89,12 +104,22 @@ class _WelcomeIntroState extends State<_WelcomeIntro> {
         ),
       ]);
 
-  Widget _buildDot(bool highlight) => Padding(
+  Widget _buildDot(int index) => Padding(
       padding: const EdgeInsets.all(6),
       child: ClipOval(
-          child: Container(
-        width: 16,
-        height: 16,
-        color: highlight ? textColor : Colors.grey.shade300,
-      )));
+          child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () => _controller.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                ),
+                child: Container(
+                  width: 16,
+                  height: 16,
+                  color:
+                      index == _currentPage ? textColor : Colors.grey.shade300,
+                ),
+              ))));
 }
