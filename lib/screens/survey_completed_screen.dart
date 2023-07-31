@@ -14,6 +14,7 @@ import '../widgets/buttons.dart';
 import '../widgets/loader.dart';
 import '../widgets/login_panel.dart';
 
+/// The survey completed screen.
 class SurveyCompletedScreen extends StatelessWidget {
   final Survey survey;
 

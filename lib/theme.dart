@@ -16,18 +16,6 @@ MaterialStateProperty<Color> get primaryColorMaterial =>
     MaterialStateProperty.all<Color>(primaryColor);
 
 const textTheme = TextTheme(
-  // displayMedium: TextStyle(
-  //   fontFamily: 'Roboto',
-  //   fontWeight: FontWeight.normal,
-  //   fontSize: 42,
-  //   color: textColor,
-  // ),
-  // displaySmall: TextStyle(
-  //   fontFamily: 'Roboto',
-  //   fontWeight: FontWeight.normal,
-  //   fontSize: 26,
-  //   color: textColor,
-  // ),
   titleMedium: TextStyle(
     fontFamily: 'Roboto',
     fontSize: 22,

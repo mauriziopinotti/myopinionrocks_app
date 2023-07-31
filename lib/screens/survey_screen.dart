@@ -14,6 +14,7 @@ import '../widgets/scaffold.dart';
 import 'error_screen.dart';
 import 'survey_completed_screen.dart';
 
+/// The survey screen to let the user answer the questions.
 class SurveyScreen extends StatelessWidget {
   const SurveyScreen({super.key});
 
@@ -27,6 +28,7 @@ class SurveyScreen extends StatelessWidget {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return MyLoader(LocaleKeys.msg_loading_survey.tr());
                   } else if (!snapshot.hasData || snapshot.hasError) {
+                    // If the user has completed all the surveys, then show a specific error
                     final outOfSurveys = snapshot.error is DioException &&
                         (snapshot.error as DioException).response?.statusCode ==
                             404;
@@ -37,6 +39,7 @@ class SurveyScreen extends StatelessWidget {
                       icon: outOfSurveys ? Icons.area_chart_rounded : null,
                     );
                   } else {
+                    // All good, show the survey!
                     return WillPopScope(
                       onWillPop: () => _confirmQuit(context),
                       child: _QuestionsPanel(snapshot.data as Survey),

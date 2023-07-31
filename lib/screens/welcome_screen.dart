@@ -10,6 +10,7 @@ import '../widgets/buttons.dart';
 import '../widgets/login_panel.dart';
 import '../widgets/scaffold.dart';
 
+/// The welcome screen with the intro slideshow and options to login or register.
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 

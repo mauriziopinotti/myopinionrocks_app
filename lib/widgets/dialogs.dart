@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../generated/locale_keys.g.dart';
 
+/// Show a confirmation dialog, it defaults to OK and CANCEL but can be customized.
 Future<bool?> showConfirmDialog(
   BuildContext context, {
   String? title,

@@ -1,5 +1,6 @@
 import '../models/survey.dart';
 
+/// REST model for survey submissions.
 class SurveySubmissionRequest {
   Survey survey;
 

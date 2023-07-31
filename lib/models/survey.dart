@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 
 import '../extensions.dart';
 
+/// App model for surveys.
 class Survey {
   late int id;
   late String title;
@@ -11,6 +12,7 @@ class Survey {
   // App-only fields
   Map<SurveyQuestion, SurveyAnswer> currentSubmission = {};
 
+  /// Returns true if all questions have been answered.
   bool get isComplete =>
       questions.firstWhereOrNull((q) => !currentSubmission.containsKey(q)) ==
       null;

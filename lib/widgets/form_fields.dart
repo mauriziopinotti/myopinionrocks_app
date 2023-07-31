@@ -6,6 +6,7 @@ import 'package:myopinionrocks_app/theme.dart';
 
 import '../generated/locale_keys.g.dart';
 
+/// A generic text form field, used to ensure consistency across the app and reduce boilerplate code.
 class MyTextField extends StatelessWidget {
   final String? labelText;
   final String? helperText;

@@ -1,3 +1,4 @@
+/// REST model for registration requests.
 class RegistrationRequest {
   String? firstName;
   String? lastName;

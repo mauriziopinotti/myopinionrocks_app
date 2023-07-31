@@ -1,3 +1,4 @@
+/// App model for logged user.
 class User {
   int? id;
   String? login;
@@ -10,6 +11,8 @@ class User {
 
   bool get isLogged => id != null;
 
+  String get fullName => "$firstName $lastName";
+
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     login = json['login'];
@@ -18,8 +21,6 @@ class User {
     email = json['email'];
     langKey = json['langKey'];
   }
-
-  get fullName => "$firstName $lastName";
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

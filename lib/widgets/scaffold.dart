@@ -7,6 +7,9 @@ import '../globals.dart';
 import '../providers/user_provider.dart';
 import '../theme.dart';
 
+/// The responsive base screen to be used for all pages.
+/// It provides the AppBar and the Scaffold.
+/// On Web (or tablet) it shows the app icon on the right to make it more pleasant for the eye.
 class MyScaffold extends StatelessWidget {
   final Widget child;
 

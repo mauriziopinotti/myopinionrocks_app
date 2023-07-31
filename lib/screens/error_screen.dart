@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../generated/locale_keys.g.dart';
 import '../theme.dart';
 
+/// An error screen with message and icon.
 class ErrorScreen extends StatelessWidget {
   final String? error;
   final IconData? icon;

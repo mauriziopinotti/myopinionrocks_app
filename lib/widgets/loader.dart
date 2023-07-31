@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:myopinionrocks_app/theme.dart';
 
+/// A loader to show while performing REST requests or other long operations.
 class MyLoader extends StatelessWidget {
   final String message;
 

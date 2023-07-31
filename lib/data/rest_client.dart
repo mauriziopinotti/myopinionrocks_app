@@ -65,7 +65,7 @@ class RestClient {
     await _fixSslCertificate();
 
     try {
-      // Try to read username from secure storage
+      // Try to read user data from secure storage
       _accessToken = await MyStorage().read(key: 'accessToken');
       String? userData = await MyStorage().read(key: 'userData');
       if (_accessToken != null && userData != null) {
@@ -127,6 +127,7 @@ class RestClient {
   }
 
   Future<bool> doLogout(BuildContext context) async {
+    // Do logout
     _accessToken = null;
     context.read<UserProvider>().logout();
     return !(await saveTokens(null));
@@ -140,28 +141,30 @@ class RestClient {
     // Register user
     await _dio.post<String>('/register', data: data.toJson());
 
-    // Login
+    // Do login
     return doLogin(
       context,
       LoginRequest(username: data.email, password: data.password),
     );
   }
 
+  /// Get a survey to be filled by the user.
+  /// Throws 404 if the user has no more surveys to fill.
   Future<Survey> getSurvey() async {
     Response<String> response = await _dio.get('/user-survey');
-    // await Future.delayed(Duration(seconds: 5)); // XXX
     return Survey.fromJson(jsonDecode(response.data!));
   }
 
+  /// Save user's submission.
   Future<SurveySubmissionResponse> createSurveyResult(
       SurveySubmissionRequest request) async {
     Response<String> response =
         await _dio.post<String>('/user-survey-result', data: request.toJson());
-
     return SurveySubmissionResponse.fromJson(jsonDecode(response.data!));
   }
 }
 
+/// Generic handler for REST errors, it parses the error and shows a message to the user.
 String? handleRestError(e, s, {bool show = true}) {
   // Print the error
   debugPrint(e?.toString());

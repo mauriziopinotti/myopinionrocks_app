@@ -1,3 +1,4 @@
+/// REST mode for login requestsz.
 class LoginRequest {
   String? username;
   String? password;
@@ -23,6 +24,7 @@ class LoginRequest {
   }
 }
 
+/// REST model for login responses.
 class LoginResponse {
   String? accessToken;
 

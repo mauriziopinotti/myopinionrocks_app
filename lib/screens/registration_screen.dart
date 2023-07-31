@@ -9,6 +9,7 @@ import 'package:myopinionrocks_app/widgets/scaffold.dart';
 import '../validators.dart';
 import '../widgets/form_fields.dart';
 
+/// The registration screen.
 class RegistrationScreen extends StatelessWidget {
   final RegistrationRequest _registrationData = RegistrationRequest();
 
@@ -16,6 +17,7 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Save device current language as user's preferred language
     _registrationData.langKey = Localizations.localeOf(context).countryCode;
 
     return MyScaffold(

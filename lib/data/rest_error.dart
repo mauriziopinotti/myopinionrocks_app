@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../generated/locale_keys.g.dart';
 
+/// Represents a REST error with it's message and details.
 class ErrorResponse {
   String? entityName;
   String? errorKey;

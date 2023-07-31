@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Cross-platform storage.
+/// If possible always uses encrypted storage with fallback to clear-text on error.
+/// Encryption may be slow, to bypass it access the `prefs` property directly.
 class MyStorage {
   static final MyStorage _instance = MyStorage._internal();
 

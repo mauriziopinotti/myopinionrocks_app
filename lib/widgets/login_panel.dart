@@ -12,6 +12,7 @@ import '../screens/registration_screen.dart';
 import '../theme.dart';
 import 'buttons.dart';
 
+/// A login panel that automatically switches between login/registration and logout buttons.
 class LoginPanel extends StatelessWidget {
   /// Replace screen when going to login or registration
   final bool replaceRoute;
@@ -25,6 +26,7 @@ class LoginPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(
         builder: (_, userProvider, __) => userProvider.isLogged
+            // Logged user fields
             ? Column(children: [
                 Text(
                   LocaleKeys.lbl_logged_as
@@ -38,7 +40,9 @@ class LoginPanel extends StatelessWidget {
                   onPressed: () => _doLogout(context),
                 ),
               ])
-            : Column(children: [
+            :
+            // Anonymous user fields
+            Column(children: [
                 MyButton(
                   LocaleKeys.lbl_login.tr(),
                   color: secondaryColor,

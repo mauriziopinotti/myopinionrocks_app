@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../generated/locale_keys.g.dart';
 
+/// Items shown in the slideshow of the welcome page.
 List<({String title, String subtitle, String image})> get welcomeItems {
   return [
     (

@@ -9,6 +9,7 @@ import 'package:myopinionrocks_app/widgets/scaffold.dart';
 import '../validators.dart';
 import '../widgets/form_fields.dart';
 
+/// The login screen.
 class LoginScreen extends StatelessWidget {
   final LoginRequest _loginData = LoginRequest();
 

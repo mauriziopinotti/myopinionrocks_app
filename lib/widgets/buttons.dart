@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
+/// A responsive button to be used for primary actions on mobile or Web.
 class MyButton extends StatelessWidget {
   final String label;
   final Color? color;
@@ -52,6 +53,7 @@ class MyButton extends StatelessWidget {
   }
 }
 
+/// A flat button to be used for secondary actions on mobile or Web.
 class MySecondaryButton extends StatelessWidget {
   final String label;
   final IconData? icon;
