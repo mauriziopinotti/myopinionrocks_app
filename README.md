@@ -57,6 +57,8 @@ Being a small app, the code is organized in packages/folders as follows:
 
 If the app size grows, it would be a better idea to add a per-feature segmentation.
 
+Flavors are in the `flavors.dart` file, there you can change the endpoints for local and prod servers.
+
 #### Regenerate l10n strings
 
 If you need to add or remove l10n strings in `assets/translations`, after that run
