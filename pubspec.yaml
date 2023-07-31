@@ -1,7 +1,7 @@
 name: myopinionrocks_app
 description: Flutter App for MyOpinionRocks
 
-version: 1.0.1+10001
+version: 1.0.2+10002
 publish_to: 'none'
 
 environment:
