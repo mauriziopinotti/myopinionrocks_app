@@ -72,6 +72,7 @@ class _QuestionsPanelState extends State<_QuestionsPanel> {
       const SizedBox(height: 16),
       Expanded(
           child: PageView.builder(
+        scrollBehavior: WebAndMobileScrollBehavior(),
         controller: _controller,
         itemCount: widget.survey.questions.length,
         itemBuilder: (_, index) {
@@ -165,7 +166,7 @@ class _AnswersPanelState extends State<_AnswersPanel> {
         activeColor: primaryColor,
         groupValue: selectedAnswer,
         value: answer,
-        onChanged: _onChanged,
+        onChanged: selectedAnswer == null ? _onChanged : null,
       );
 
   _onChanged(final SurveyAnswer? answer) async {
