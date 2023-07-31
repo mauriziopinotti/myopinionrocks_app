@@ -132,7 +132,7 @@ class MyPasswordFieldState extends State<MyPasswordField> {
         TextPosition(offset: controller!.text.length));
 
     return MyTextField(
-      labelText: widget.labelText ?? LocaleKeys.label_password.tr(),
+      labelText: widget.labelText ?? LocaleKeys.lbl_password.tr(),
       helperText: widget.helperText,
       iconWidget: GestureDetector(
         child: Icon(_obscureText

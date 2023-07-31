@@ -132,14 +132,19 @@ class RestClient {
     return !(await saveTokens(null));
   }
 
-  Future<String?> doRegistration(
+  Future<User> doRegistration(
       BuildContext context, RegistrationRequest data) async {
     // Clean old tokens and info
     await doLogout(context);
 
+    // Register user
     await _dio.post<String>('/register', data: data.toJson());
 
-    return null;
+    // Login
+    return doLogin(
+      context,
+      LoginRequest(username: data.email, password: data.password),
+    );
   }
 
   Future<Survey> getSurvey() async {

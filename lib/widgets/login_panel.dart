@@ -36,14 +36,14 @@ class LoginPanel extends StatelessWidget {
                 MyButton(
                   LocaleKeys.lbl_login.tr(),
                   color: secondaryColor,
-                  onPressed: () => push(const LoginScreen()),
+                  onPressed: () => push(LoginScreen()),
                 ),
                 const SizedBox(height: 8),
                 Text(LocaleKeys.msg_dont_have_account.tr()),
                 MyButton(
                   LocaleKeys.lbl_register.tr(),
                   color: tertiaryColor,
-                  onPressed: () => push(const RegistrationScreen()),
+                  onPressed: () => push(RegistrationScreen()),
                 ),
               ]));
   }

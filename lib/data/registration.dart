@@ -2,7 +2,6 @@ class RegistrationRequest {
   String? firstName;
   String? lastName;
   String? email;
-  String? phone;
   String? password;
   String? passwordConfirm;
   String? langKey;
@@ -14,10 +13,8 @@ class RegistrationRequest {
     data['firstName'] = firstName;
     data['lastName'] = lastName;
     data['login'] = data['email'] = email!.trim();
-    data['telefono'] = phone;
     data['password'] = password!.trim();
     data['langKey'] = langKey;
-    // data['authorities'] = [roleUser];
     return data;
   }
 }

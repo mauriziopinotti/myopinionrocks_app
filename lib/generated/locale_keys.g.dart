@@ -18,6 +18,7 @@ abstract class  LocaleKeys {
   static const lbl_logged_as = 'lbl_logged_as';
   static const lbl_register = 'lbl_register';
   static const lbl_no_register = 'lbl_no_register';
+  static const msg_registering = 'msg_registering';
   static const msg_dont_have_account = 'msg_dont_have_account';
   static const lbl_goto_survey = 'lbl_goto_survey';
   static const msg_quit_survey = 'msg_quit_survey';
@@ -29,11 +30,15 @@ abstract class  LocaleKeys {
   static const msg_login_failed = 'msg_login_failed';
   static const field_is_required = 'field_is_required';
   static const field_email_invalid = 'field_email_invalid';
-  static const label_email = 'label_email';
-  static const label_password = 'label_password';
+  static const lbl_email = 'lbl_email';
+  static const lbl_password = 'lbl_password';
+  static const lbl_password_confirm = 'lbl_password_confirm';
   static const msg_error_user_pass = 'msg_error_user_pass';
   static const msg_login_ok = 'msg_login_ok';
   static const msg_register_ok = 'msg_register_ok';
   static const msg_survey_error = 'msg_survey_error';
+  static const lbl_first_name = 'lbl_first_name';
+  static const lbl_last_name = 'lbl_last_name';
+  static const msg_check_passwords = 'msg_check_passwords';
 
 }
