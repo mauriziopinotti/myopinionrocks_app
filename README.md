@@ -6,7 +6,7 @@ Repository: https://github.com/mauriziopinotti/myopinionrocks_app
 
 ### Build and run locally
 
-Install Flutter as described (in the docs)[https://docs.flutter.dev/get-started/install].
+Install Flutter as described [in the docs](https://docs.flutter.dev/get-started/install).
 
 ```shell
 # Run for local server on 127.0.0.1:8080
@@ -16,8 +16,6 @@ flutter run --flavor=prod
 ```
 
 ### Development
-
-**Note: due to time constraints unit tests are incomplete.**
 
 #### Architecture
 
@@ -87,7 +85,7 @@ The APIs are documented in the Postman collection `MyOpinionRocks.postman_collec
 
 ### Remote server
 
-TBD
+A remote backend is available at https://myopinionrocks.mauriziopinotti.it/api
 
 ## Possible improvements
 
