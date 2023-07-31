@@ -25,6 +25,7 @@
   "msg_saved_survey": "Your submission is now safe in our servers!",
   "msg_join": "Join millions of others in sharing your opinion on politics, sport, entertainment and more.",
   "msg_api_generic_error": "An error occurred while getting your data, please try again shortly.",
+  "msg_out_of_surveys": "You have completed all the surveys, check back with a different user or logout to keep playing with the app.",
   "msg_login_failed": "Wrong credentials, please double check username and password and try again.",
   "field_is_required": "This field is required.",
   "field_email_invalid": "The e-mail address you provided is not valid.",

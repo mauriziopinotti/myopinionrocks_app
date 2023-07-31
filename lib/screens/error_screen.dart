@@ -5,19 +5,26 @@ import '../generated/locale_keys.g.dart';
 import '../theme.dart';
 
 class ErrorScreen extends StatelessWidget {
-  const ErrorScreen({super.key});
+  final String? error;
+  final IconData? icon;
+
+  const ErrorScreen({
+    super.key,
+    this.error,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Icon(
-        Icons.heart_broken_rounded,
+        icon ?? Icons.heart_broken_rounded,
         size: 128,
         color: textTheme.bodyLarge!.color,
       ),
       const SizedBox(height: 16),
       Text(
-        LocaleKeys.msg_api_generic_error.tr(),
+        error ?? LocaleKeys.msg_api_generic_error.tr(),
         textAlign: TextAlign.center,
         style: textTheme.bodyLarge,
       ),

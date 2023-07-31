@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:myopinionrocks_app/data/rest_client.dart';
@@ -26,7 +27,15 @@ class SurveyScreen extends StatelessWidget {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return MyLoader(LocaleKeys.msg_loading_survey.tr());
                   } else if (!snapshot.hasData || snapshot.hasError) {
-                    return const ErrorScreen();
+                    final outOfSurveys = snapshot.error is DioException &&
+                        (snapshot.error as DioException).response?.statusCode ==
+                            404;
+                    return ErrorScreen(
+                      error: outOfSurveys
+                          ? LocaleKeys.msg_out_of_surveys.tr()
+                          : null,
+                      icon: outOfSurveys ? Icons.area_chart_rounded : null,
+                    );
                   } else {
                     return WillPopScope(
                       onWillPop: () => _confirmQuit(context),

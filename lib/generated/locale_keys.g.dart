@@ -27,6 +27,7 @@ abstract class  LocaleKeys {
   static const msg_saved_survey = 'msg_saved_survey';
   static const msg_join = 'msg_join';
   static const msg_api_generic_error = 'msg_api_generic_error';
+  static const msg_out_of_surveys = 'msg_out_of_surveys';
   static const msg_login_failed = 'msg_login_failed';
   static const field_is_required = 'field_is_required';
   static const field_email_invalid = 'field_email_invalid';
