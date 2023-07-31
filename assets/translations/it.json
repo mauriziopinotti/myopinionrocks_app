@@ -16,6 +16,7 @@
   "lbl_logged_as": "Loggato come {}",
   "lbl_register": "Registrati",
   "lbl_no_register": "Bring me back to the home page",
+  "msg_registering": "We're creating your account, please stand by...",
   "msg_dont_have_account": "Non hai un account?",
   "lbl_goto_survey": "Inizia il sondaggio",
   "msg_quit_survey": "Sicuro di voler interrompere il sondaggio in corso?",
@@ -27,10 +28,14 @@
   "msg_login_failed": "Credenziali errate, si prega di verificare username e password e riprovare.",
   "field_is_required": "Questo campo è obbligatorio.",
   "field_email_invalid": "L'indirizzo e-mail inserito non è valido.",
-  "label_email": "E-mail",
-  "label_password": "Password",
+  "lbl_email": "E-mail",
+  "lbl_password": "Password",
+  "lbl_password_confirm": "Conferma password",
   "msg_error_user_pass": "E-mail o password errati",
   "msg_login_ok": "Bentornato, {}",
   "msg_register_ok": "Benvenuto a bordo, {}",
-  "msg_survey_error": "Woops, you already submitted this survey!"
+  "msg_survey_error": "Woops, you already submitted this survey!",
+  "lbl_first_name": "Nome",
+  "lbl_last_name": "Cognome",
+  "msg_check_passwords": "Le password non coincidono."
 }
