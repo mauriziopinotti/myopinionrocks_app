@@ -61,7 +61,7 @@ class Env {
   /// Prod server
   const Env.prod()
       : this(
-          baseUrl: 'https://easyhour.app',
+          baseUrl: 'https://myopinionrocks.mauriziopinotti.it',
           apiContext: '/api',
         );
 
