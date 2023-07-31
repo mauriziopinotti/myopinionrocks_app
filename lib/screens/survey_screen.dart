@@ -10,6 +10,7 @@ import '../theme.dart';
 import '../widgets/dialogs.dart';
 import '../widgets/loader.dart';
 import '../widgets/scaffold.dart';
+import 'error_screen.dart';
 import 'survey_completed_screen.dart';
 
 class SurveyScreen extends StatelessWidget {
@@ -21,13 +22,18 @@ class SurveyScreen extends StatelessWidget {
         child: Center(
             child: FutureBuilder<Survey>(
                 future: RestClient().getSurvey(),
-                builder: (_, AsyncSnapshot<Survey> snapshot) =>
-                    snapshot.connectionState != ConnectionState.done
-                        ? MyLoader(LocaleKeys.msg_loading_survey.tr())
-                        : WillPopScope(
-                            onWillPop: () => _confirmQuit(context),
-                            child: _QuestionsPanel(snapshot.data as Survey),
-                          ))));
+                builder: (_, AsyncSnapshot<Survey> snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return MyLoader(LocaleKeys.msg_loading_survey.tr());
+                  } else if (!snapshot.hasData || snapshot.hasError) {
+                    return const ErrorScreen();
+                  } else {
+                    return WillPopScope(
+                      onWillPop: () => _confirmQuit(context),
+                      child: _QuestionsPanel(snapshot.data as Survey),
+                    );
+                  }
+                })));
   }
 
   Future<bool> _confirmQuit(BuildContext context) async {
