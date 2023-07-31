@@ -40,14 +40,17 @@ class UserFormState extends State<UserForm> {
       return MyLoader(widget.actionWaitMessage ?? "");
     }
 
-    return Form(
-      key: _formKey,
-      child: ListView(shrinkWrap: true, children: [
-        ...widget.formFields,
-        const Spacer(),
-        MyButton(widget.actionLabel, onPressed: _doAction),
-      ]),
-    );
+    return Column(children: [
+      Expanded(
+          child: Form(
+        key: _formKey,
+        child: ListView(
+          shrinkWrap: true,
+          children: widget.formFields,
+        ),
+      )),
+      MyButton(widget.actionLabel, onPressed: _doAction),
+    ]);
   }
 
   _doAction() async {
