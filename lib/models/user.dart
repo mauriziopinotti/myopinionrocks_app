@@ -25,7 +25,7 @@ class User {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['login'] = login;
-    data['fistName'] = firstName;
+    data['firstName'] = firstName;
     data['lastName'] = lastName;
     data['email'] = email;
     data['langKey'] = langKey;
