@@ -13,7 +13,13 @@ import '../theme.dart';
 import 'buttons.dart';
 
 class LoginPanel extends StatelessWidget {
-  const LoginPanel({super.key});
+  /// Replace screen when going to login or registration
+  final bool replaceRoute;
+
+  const LoginPanel({
+    super.key,
+    this.replaceRoute = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +42,15 @@ class LoginPanel extends StatelessWidget {
                 MyButton(
                   LocaleKeys.lbl_login.tr(),
                   color: secondaryColor,
-                  onPressed: () => push(LoginScreen()),
+                  onPressed: () => push(LoginScreen(), replace: replaceRoute),
                 ),
                 const SizedBox(height: 8),
                 Text(LocaleKeys.msg_dont_have_account.tr()),
                 MyButton(
                   LocaleKeys.lbl_register.tr(),
                   color: tertiaryColor,
-                  onPressed: () => push(RegistrationScreen()),
+                  onPressed: () =>
+                      push(RegistrationScreen(), replace: replaceRoute),
                 ),
               ]));
   }

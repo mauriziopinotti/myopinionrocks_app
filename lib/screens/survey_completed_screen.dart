@@ -58,7 +58,7 @@ class _SurveyCompletedPanel extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16),
-        const LoginPanel(),
+        const LoginPanel(replaceRoute: true),
       ],
       const Spacer(),
       const Divider(),
