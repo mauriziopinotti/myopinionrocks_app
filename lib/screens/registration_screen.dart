@@ -47,12 +47,12 @@ class RegistrationScreen extends StatelessWidget {
           onSaved: (value) => _registrationData.email = value,
         ),
         MyPasswordField(
-          labelText: LocaleKeys.lbl_password_confirm.tr(),
           initialValue: _registrationData.password,
           onSaved: (value) => _registrationData.password = value,
           autofillHints: const [AutofillHints.newPassword],
         ),
         MyPasswordField(
+          labelText: LocaleKeys.lbl_password_confirm.tr(),
           initialValue: _registrationData.passwordConfirm,
           onSaved: (value) => _registrationData.passwordConfirm = value,
           autofillHints: const [AutofillHints.newPassword],
