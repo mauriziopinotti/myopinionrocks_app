@@ -1,16 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:myopinionrocks_app/models/survey.dart';
+import 'package:myopinionrocks_app/providers/user_provider.dart';
 import 'package:myopinionrocks_app/widgets/scaffold.dart';
+import 'package:provider/provider.dart';
 
 import '../data/rest_client.dart';
 import '../data/survey.dart';
 import '../generated/locale_keys.g.dart';
 import '../globals.dart';
 import '../theme.dart';
-import '../widgets/button.dart';
+import '../widgets/buttons.dart';
 import '../widgets/loader.dart';
-import 'registration_screen.dart';
+import '../widgets/login_panel.dart';
 
 class SurveyCompletedScreen extends StatelessWidget {
   final Survey survey;
@@ -24,17 +26,19 @@ class SurveyCompletedScreen extends StatelessWidget {
             child: FutureBuilder<SurveySubmissionResponse>(
                 future: RestClient()
                     .createSurveyResult(SurveySubmissionRequest(survey)),
-                builder:
-                    (_, AsyncSnapshot<SurveySubmissionResponse> snapshot) =>
-                        snapshot.connectionState != ConnectionState.done
-                            ? MyLoader(LocaleKeys.msg_saving_survey.tr())
-                            : _SurveyCompletedPanel(
-                                snapshot.data as SurveySubmissionResponse))));
+                builder: (_, AsyncSnapshot<SurveySubmissionResponse> snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return MyLoader(LocaleKeys.msg_saving_survey.tr());
+                  } else {
+                    return _SurveyCompletedPanel(
+                        snapshot.data as SurveySubmissionResponse?);
+                  }
+                })));
   }
 }
 
 class _SurveyCompletedPanel extends StatelessWidget {
-  final SurveySubmissionResponse surveySubmission;
+  final SurveySubmissionResponse? surveySubmission;
 
   const _SurveyCompletedPanel(this.surveySubmission, {super.key});
 
@@ -44,22 +48,27 @@ class _SurveyCompletedPanel extends StatelessWidget {
       Image.asset('assets/images/grow-rewards.png'),
       const SizedBox(height: 16),
       Text(
-        LocaleKeys.msg_saved_survey.tr(),
+        surveySubmission != null
+            ? LocaleKeys.msg_saved_survey.tr()
+            : LocaleKeys.msg_survey_error.tr(),
         style: textTheme.titleLarge,
         textAlign: TextAlign.center,
       ),
-      const SizedBox(height: 16),
-      Text(
-        LocaleKeys.msg_join.tr(),
-        style: textTheme.titleMedium,
-        textAlign: TextAlign.center,
-      ),
+      if (!context.read<UserProvider>().isLogged) ...[
+        const SizedBox(height: 16),
+        Text(
+          LocaleKeys.msg_join.tr(),
+          style: textTheme.titleMedium,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 16),
+        const LoginPanel(),
+      ],
       const Spacer(),
-      MyButton(
-        LocaleKeys.lbl_register.tr(),
-        expanded: true,
-        color: tertiaryColor,
-        onPressed: () => push(context, const RegistrationScreen()),
+      const Divider(),
+      MySecondaryButton(
+        label: LocaleKeys.lbl_no_register.tr(),
+        onPressed: () => back(),
       ),
     ]);
   }

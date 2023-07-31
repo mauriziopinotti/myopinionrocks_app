@@ -29,7 +29,7 @@ class LoginResponse {
   LoginResponse({this.accessToken});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    accessToken = json['accessToken'];
+    accessToken = json['id_token'];
   }
 
   @override

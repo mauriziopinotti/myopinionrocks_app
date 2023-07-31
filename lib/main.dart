@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:myopinionrocks_app/providers/user_provider.dart';
 import 'package:myopinionrocks_app/screens/welcome_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 
 import 'data/rest_client.dart';
 import 'data/storage.dart';
@@ -18,7 +20,6 @@ void main() async {
   await Env.init();
   packageInfo = await PackageInfo.fromPlatform();
   await MyStorage().init();
-  await RestClient().init();
 
   runApp(EasyLocalization(
       useOnlyLangCode: true,
@@ -27,13 +28,24 @@ void main() async {
       fallbackLocale: Locale(supportedLanguages.first.languageCode),
       assetLoader: JsonAssetLoader(),
       path: 'assets/translations',
-      // child: MultiProvider(providers: [
-      // ChangeNotifierProvider(create: (_) => EasyThemeProvider()),],
-      child: const MyOpinionRocksApp()));
+      child: MultiProvider(providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ], child: const MyOpinionRocksApp())));
 }
 
-class MyOpinionRocksApp extends StatelessWidget {
+class MyOpinionRocksApp extends StatefulWidget {
   const MyOpinionRocksApp({super.key});
+
+  @override
+  State<MyOpinionRocksApp> createState() => _MyOpinionRocksAppState();
+}
+
+class _MyOpinionRocksAppState extends State<MyOpinionRocksApp> {
+  @override
+  void initState() {
+    super.initState();
+    RestClient().init(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +57,7 @@ class MyOpinionRocksApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
     );
   }
 }

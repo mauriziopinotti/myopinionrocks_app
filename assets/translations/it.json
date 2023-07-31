@@ -11,7 +11,11 @@
   "lbl_welcome_3_title": "Get Free Gift Cards",
   "lbl_welcome_3_subtitle": "Redeem the points agains gift cards from companies such as amazon, brown Thomas and more.",
   "lbl_login": "Login",
+  "lbl_logout": "Logout",
+  "msg_loggin_in": "We're logging you in, please stand by...",
+  "lbl_logged_as": "Loggato come {}",
   "lbl_register": "Registrati",
+  "lbl_no_register": "Bring me back to the home page",
   "msg_dont_have_account": "Non hai un account?",
   "lbl_goto_survey": "Inizia il sondaggio",
   "msg_quit_survey": "Sicuro di voler interrompere il sondaggio in corso?",
@@ -20,5 +24,13 @@
   "msg_saved_survey": "Il tuo invio è ora al sicuro nei nostri server!",
   "msg_join": "Join millions of others in sharing your opinion on politics, sport, entertainment and more.",
   "msg_api_generic_error": "Si è verificato un errore durante il caricamento dei dati, si prega di riprovare.",
-  "msg_login_failed": "Credenziali errate, si prega di verificare username e password e riprovare."
+  "msg_login_failed": "Credenziali errate, si prega di verificare username e password e riprovare.",
+  "field_is_required": "Questo campo è obbligatorio.",
+  "field_email_invalid": "L'indirizzo e-mail inserito non è valido.",
+  "label_email": "E-mail",
+  "label_password": "Password",
+  "msg_error_user_pass": "E-mail o password errati",
+  "msg_login_ok": "Bentornato, {}",
+  "msg_register_ok": "Benvenuto a bordo, {}",
+  "msg_survey_error": "Woops, you already submitted this survey!"
 }

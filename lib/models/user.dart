@@ -1,7 +1,7 @@
 class User {
   int? id;
   String? login;
-  String? fistName;
+  String? firstName;
   String? lastName;
   String? email;
   String? langKey;
@@ -13,17 +13,19 @@ class User {
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     login = json['login'];
-    fistName = json['fistName'];
+    firstName = json['firstName'];
     lastName = json['lastName'];
     email = json['email'];
     langKey = json['langKey'];
   }
 
+  get fullName => "$firstName $lastName";
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['login'] = login;
-    data['fistName'] = fistName;
+    data['fistName'] = firstName;
     data['lastName'] = lastName;
     data['email'] = email;
     data['langKey'] = langKey;
@@ -32,6 +34,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{id: $id, login: $login, fistName: $fistName, lastName: $lastName, email: $email, langKey: $langKey}';
+    return 'User{id: $id, login: $login, fistName: $firstName, lastName: $lastName, email: $email, langKey: $langKey}';
   }
 }

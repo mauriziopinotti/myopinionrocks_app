@@ -1,15 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:myopinionrocks_app/generated/locale_keys.g.dart';
-import 'package:myopinionrocks_app/screens/registration_screen.dart';
 import 'package:myopinionrocks_app/screens/survey_screen.dart';
 
 import '../data/welcome.dart';
 import '../globals.dart';
 import '../theme.dart';
-import '../widgets/button.dart';
+import '../widgets/buttons.dart';
+import '../widgets/login_panel.dart';
 import '../widgets/scaffold.dart';
-import 'login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -25,21 +24,10 @@ class WelcomeScreen extends StatelessWidget {
       MyButton(
         LocaleKeys.lbl_goto_survey.tr(),
         color: primaryColor,
-        onPressed: () => push(context, const SurveyScreen()),
+        onPressed: () => push(const SurveyScreen()),
       ),
       const Divider(height: 32),
-      MyButton(
-        LocaleKeys.lbl_login.tr(),
-        color: secondaryColor,
-        onPressed: () => push(context, const LoginScreen()),
-      ),
-      const SizedBox(height: 8),
-      Text(LocaleKeys.msg_dont_have_account.tr()),
-      MyButton(
-        LocaleKeys.lbl_register.tr(),
-        color: tertiaryColor,
-        onPressed: () => push(context, const RegistrationScreen()),
-      ),
+      const LoginPanel(),
     ]));
   }
 }

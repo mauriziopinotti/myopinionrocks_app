@@ -1,20 +1,24 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
 import '../data/storage.dart';
 import '../flavors.dart';
-import '../generated/locale_keys.g.dart';
 import '../globals.dart';
 import '../models/survey.dart';
 import '../models/user.dart';
+import '../providers/user_provider.dart';
 import 'login.dart';
 import 'registration.dart';
+import 'rest_error.dart';
 import 'survey.dart';
 
 class RestClient {
@@ -24,13 +28,6 @@ class RestClient {
     return _instance;
   }
 
-  bool get initOk => _initOk;
-  bool _initOk = false;
-
-  String? get username => _username;
-  String? _username;
-
-  String? get accessToken => _accessToken;
   String? _accessToken;
 
   final Dio _dio = Dio()
@@ -55,7 +52,6 @@ class RestClient {
       });
       return handler.next(options);
     }, onError: (e, handler) async {
-      // TODO
       // handleRestError(e, null);
       return handler.reject(e);
     }, onResponse: (response, handler) async {
@@ -64,27 +60,24 @@ class RestClient {
     }));
   }
 
-  Future<bool> init({bool force = false}) async {
-    if (_initOk && !force) return true;
-
+  init(BuildContext context) async {
     // Fix SSL certificate on old devices
     await _fixSslCertificate();
 
     try {
       // Try to read username from secure storage
-      _username = await MyStorage().read(key: 'username');
       _accessToken = await MyStorage().read(key: 'accessToken');
+      String? userData = await MyStorage().read(key: 'userData');
+      if (_accessToken != null && userData != null) {
+        User user = User.fromJson(jsonDecode(userData));
+        context.read<UserProvider>().login(user);
+      }
     } catch (e, s) {
       // Likely a secure storage issue (e.g. the app has been transferred to a new phone)
-      print(e);
-      print(s);
-      doLogout();
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+      doLogout(context);
     }
-
-    // If logged update UserInfo
-    _initOk = isUserLogged ? await updateUser() : true;
-
-    return _initOk;
   }
 
   _fixSslCertificate() async {
@@ -102,88 +95,51 @@ class RestClient {
 
   Future<bool> saveTokens(LoginResponse? response) async {
     _accessToken = response?.accessToken;
-
-    await MyStorage().write(key: 'username', value: _username);
     await MyStorage().write(key: 'accessToken', value: _accessToken);
+    if (_accessToken == null) {
+      await MyStorage().write(key: 'userData', value: null);
+    }
 
     return _accessToken != null;
   }
 
-  bool get isUserLogged => _accessToken?.isNotEmpty == true;
-
-  Future<String?> doLogin(LoginRequest data) async {
+  Future<User> doLogin(BuildContext context, LoginRequest data) async {
     // Clean old tokens and info
-    await doLogout();
-    _username = data.username?.trim();
+    await doLogout(context);
+    context.read<UserProvider>().logout();
 
-    // try {
+    // Do login
     LoginResponse loginResponse;
     Response<String> response =
         await _dio.post<String>('/authenticate', data: data.toJson());
     loginResponse = LoginResponse.fromJson(jsonDecode(response.data!));
+    await saveTokens(loginResponse);
 
-    if (await saveTokens(loginResponse)) {
-      // Also, wait for user information to be populated
-      await updateUser();
-      return null;
-    } else {
-      return LocaleKeys.msg_api_generic_error.tr();
-    }
-    // } catch (e, s) {
-    //   print(e);
-    //   print(s);
-    //
-    //   return e is DioException && e.response?.statusCode == 401
-    //       ? LocaleKeys.message_login_failed.tr()
-    //       : parseRestError(e);
-    // }
+    // Get user data
+    response = await _dio.get('/account');
+    final user = User.fromJson(jsonDecode(response.data!));
+    await MyStorage().write(key: 'userData', value: jsonEncode(user.toJson()));
+
+    // Notify login to all consumers
+    context.read<UserProvider>().login(user);
+
+    return user;
   }
 
-  Future<bool> doLogout() async {
+  Future<bool> doLogout(BuildContext context) async {
     _accessToken = null;
-    user = User();
-    // SideMenuState.selectedMenu = null;
-
-    // Set default theme
-    // navigatorContext?.read<EasyThemeProvider>().applyTheme();
-
+    context.read<UserProvider>().logout();
     return !(await saveTokens(null));
   }
 
-  Future<String?> doRegistration(RegistrationRequest data) async {
+  Future<String?> doRegistration(
+      BuildContext context, RegistrationRequest data) async {
     // Clean old tokens and info
-    await doLogout();
-    _username = data.username!.trim();
+    await doLogout(context);
 
-    // try {
     await _dio.post<String>('/register', data: data.toJson());
 
     return null;
-    // } catch (e, s) {
-    //   print(e);
-    //   print(s);
-    //
-    //   return parseRestError(e);
-    // }
-  }
-
-  Future<bool> updateUser() async {
-    try {
-      // Update userInfo
-      Response<String> response = await _dio.get('/user-info');
-      user = User.fromJson(jsonDecode(response.data!));
-      return user.isLogged;
-    } catch (e) {
-      if (e is DioException &&
-          (e.response?.statusCode == 400 || e.response?.statusCode == 401)) {
-        // Bad token
-        doLogout();
-        // Return "ok": user is forced to login again
-        return true;
-      }
-      // Return "error": user is sent to error screen and can try again
-      return false;
-    }
   }
 
   Future<Survey> getSurvey() async {
@@ -192,41 +148,23 @@ class RestClient {
     return Survey.fromJson(jsonDecode(response.data!));
   }
 
-Future<SurveySubmissionResponse> createSurveyResult(SurveySubmissionRequest request) async {
-  Response<String> response =
-      await _dio.post<String>('/user-survey-result', data: request.toJson());
+  Future<SurveySubmissionResponse> createSurveyResult(
+      SurveySubmissionRequest request) async {
+    Response<String> response =
+        await _dio.post<String>('/user-survey-result', data: request.toJson());
 
-  return SurveySubmissionResponse.fromJson(jsonDecode(response.data!));
+    return SurveySubmissionResponse.fromJson(jsonDecode(response.data!));
+  }
 }
+
+String? handleRestError(e, s, {bool show = true}) {
+  // Print the error
+  debugPrint(e?.toString());
+  debugPrintStack(stackTrace: s);
+
+  // Show the error
+  String? error = ErrorResponse.parse(e);
+  if (show) showMessage(error!);
+
+  return error;
 }
-
-// String? parseRestError(e) {
-//   try {
-//     // Response may contain an error message
-//     dynamic map;
-//     try {
-//       map = e.response.data;
-//     } on NoSuchMethodError {}
-//     final data = map is Map ? map : jsonDecode(map);
-//     return ErrorResponse.fromJson(data).toString();
-//   } catch (_) {
-//     // Use a generic error
-//     try {
-//       if (e?.response?.data is String && e.response.data.isNotEmpty)
-//         return e.response.data;
-//     } catch (_) {}
-//     return LocaleKeys.api_generic_error.tr();
-//   }
-// }
-
-// String? handleRestError(e, s, {bool show = true}) {
-//   // Print the error
-//   print(e);
-//   print(s);
-//
-//   // Show the error
-//   String? error = parseRestError(e);
-//   if (show) showMessage(error!);
-//
-//   return error;
-// }

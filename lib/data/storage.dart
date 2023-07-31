@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,11 +26,11 @@ class MyStorage {
       _secureStorage!.write(key: 'test', value: 'test');
       final value = await _secureStorage!.read(key: 'test');
       if (value != 'test') throw Exception("invalid return value: $value");
-      print("Secure storage init OK");
+      debugPrint("Secure storage init OK");
 
       return true;
     } catch (e) {
-      print("Secure storage init ERROR: $e");
+      debugPrint("Secure storage init ERROR: $e");
       _secureStorage = null;
 
       return false;

@@ -96,7 +96,7 @@ class _QuestionsPanelState extends State<_QuestionsPanel> {
   _onAnswerSelected() async {
     if (widget.survey.isComplete) {
       // Survey completed!
-      return push(context, SurveyCompletedScreen(widget.survey), replace: true);
+      return push(SurveyCompletedScreen(widget.survey), replace: true);
     }
     // Go to next empty question
     for (int i = 0; i < widget.survey.questions.length; i++) {

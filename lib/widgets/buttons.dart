@@ -32,7 +32,7 @@ class MyButton extends StatelessWidget {
             horizontal: 20,
           ))),
       onPressed: onPressed,
-      child: Text(label.toUpperCase()),
+      child: Text(label.toUpperCase(), maxLines: 1),
     );
 
     // Expand
@@ -49,5 +49,32 @@ class MyButton extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       child: button,
     );
+  }
+}
+
+class MySecondaryButton extends StatelessWidget {
+  final String label;
+  final IconData? icon;
+  final VoidCallback onPressed;
+
+  const MySecondaryButton({
+    super.key,
+    required this.label,
+    this.icon,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return icon != null
+        ? TextButton.icon(
+            icon: Icon(icon, color: textTheme.bodyMedium!.color),
+            label: Text(label, style: textTheme.bodyMedium, maxLines: 1),
+            onPressed: onPressed,
+          )
+        : TextButton(
+            onPressed: onPressed,
+            child: Text(label, style: textTheme.bodyMedium, maxLines: 1),
+          );
   }
 }

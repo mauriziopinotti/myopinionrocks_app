@@ -45,16 +45,23 @@ const textTheme = TextTheme(
     fontSize: 24,
     color: textColor,
   ),
-  // bodyLarge: TextStyle(
-  //   fontFamily: 'Roboto',
-  //   fontWeight: FontWeight.normal,
-  //   fontSize: 20,
-  //   color: textColor,
-  // ),
+  bodyLarge: TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.normal,
+    fontSize: 20,
+    color: textColor,
+  ),
   bodyMedium: TextStyle(
     fontFamily: 'Roboto',
     // fontWeight: FontWeight.w300,
     fontSize: 18,
     color: textColor,
   ),
+);
+
+const snackBarStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w300,
+  fontSize: 16,
+  color: Color(0xFFFFFFFF),
 );

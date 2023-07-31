@@ -20,7 +20,7 @@ class Env {
         : (await const MethodChannel('flavor')
             .invokeMethod<String>('getFlavor'))!;
     ENV = Env.fromFlavor(flavor);
-    print("Env from flavor $flavor: $ENV");
+    debugPrint("Env from flavor $flavor: $ENV");
   }
 
   static fromFlavor(String flavor) {
